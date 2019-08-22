@@ -13,3 +13,9 @@ def deliver(request, id):
     ad2 = request.POST['address2']
     pb.deliver(int(ad1), int(ad2))
     return HttpResponseRedirect('/')
+
+def paperboy (request, id):
+    pb = Paperboy.objects.filter(pk=id)
+    earnings = "{:10.2f}".format(Paperboy.total_earnings())
+    context = {'paperboys' : pb, 'total_papers': Paperboy.total_papers(), 'total_earnings': earnings}
+    return render(request, 'index.html', context)
